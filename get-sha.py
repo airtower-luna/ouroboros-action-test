@@ -21,7 +21,7 @@ try:
 finally:
     print(r.text, file=sys.stderr)
 
-print(f'retrieving refs from {refs_url}')
+print(f'retrieving refs from {refs_url}', file=sys.stderr)
 r = session.get(refs_url)
 print(r.headers, file=sys.stderr)
 for ref in r.json():

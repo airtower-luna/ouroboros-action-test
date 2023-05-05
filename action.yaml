@@ -5,7 +5,7 @@ author: 'fiona.klute@gmx.de'
 outputs:
   version:
     description: Commit ID
-    value: ${{ steps.version.hash }}
+    value: ${{ steps.version.outputs.hash }}
 
 runs:
   using: composite

@@ -12,7 +12,7 @@ session.headers.update({
     'Accept': 'application/vnd.github+json'
 })
 if (token := os.environ.get('GITHUB_TOKEN')) is not None:
-    session.headers.update({'Authorization': f'Bearer ${token}'})
+    session.headers.update({'Authorization': f'Bearer {token}'})
 
 r = session.get(f'https://api.github.com/repos/{action_repo}')
 print(r.headers, file=sys.stderr)

@@ -24,6 +24,7 @@ finally:
 r = session.get(refs_url)
 print(r.headers, file=sys.stderr)
 for ref in r.json():
+    print(ref, file=sys.stderr)
     ref_str = ref['ref'].removeprefix('refs/heads/').removeprefix('refs/tags/')
     if ref_str == action_ref:
         print(f'{ref["object"]["sha"]}')

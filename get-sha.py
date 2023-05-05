@@ -17,10 +17,11 @@ if (token := os.environ.get('GITHUB_TOKEN')) is not None:
 r = session.get(f'https://api.github.com/repos/{action_repo}')
 print(r.headers, file=sys.stderr)
 try:
-    refs_url = r.json()['git_refs_url']
+    refs_url = r.json()['git_refs_url'].removesuffix('{/sha}')
 finally:
     print(r.text, file=sys.stderr)
 
+print(f'retrieving refs from {refs_url}')
 r = session.get(refs_url)
 print(r.headers, file=sys.stderr)
 for ref in r.json():

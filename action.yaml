@@ -14,20 +14,10 @@ runs:
     # when I tested this)
     - id: version
       run: |
-        ref_url=$(curl --request GET \
-          --verbose \
-          --url "https://api.github.com/repos/${ACTION_REPO}" \
-          --header "Authorization: Bearer ${TOKEN}" \
-          --header "X-GitHub-Api-Version: 2022-11-28" \
-          --header "Accept: application/vnd.github+json" | jq .git_refs_url)
-        curl --request GET \
-          --verbose \
-          --url "${ref_url}" \
-          --header "Authorization: Bearer ${TOKEN}" \
-          --header "X-GitHub-Api-Version: 2022-11-28" \
-          --header "Accept: application/vnd.github+json"
-        echo "hash=$(git rev-parse HEAD)" >>"${GITHUB_OUTPUT}"
+        echo "hash=$(python3 ${ACTION_PATH}/get-sha.py "${ACTION_REPO}" "${ACTION_REF}")" >>"${GITHUB_OUTPUT}"
       shell: bash
       env:
-        TOKEN: '${{ github.token }}'
+        GITHUB_TOKEN: '${{ github.token }}'
+        ACTION_PATH: '${{ github.action_path }}'
+        ACTION_REF: '${{ github.action_ref }}'
         ACTION_REPO: '${{ github.action_repository }}'

@@ -12,3 +12,9 @@ jobs:
           echo "${VERSION}"
         env:
           VERSION: '${{ steps.ouroboros.outputs.version }}'
+      - uses: airtower-luna/ouroboros-action-test@d9fe9c05521e8f991d0cce489868acaef3d0151a
+        id: ouroboros-pinned
+      - run:
+          echo "${VERSION}"
+        env:
+          VERSION: '${{ steps.ouroboros-pinned.outputs.version }}'

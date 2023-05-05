@@ -1,0 +1,19 @@
+name: Ouroboros action test
+description: Try if a composite action can get its own commit ID during run
+author: 'fiona.klute@gmx.de'
+
+outputs:
+  version:
+    description: Commit ID
+    value: ${{ steps.version.hash }}
+
+runs:
+  using: composite
+  steps:
+    - id: version
+      run: |
+        cd ${ACTION_PATH}
+        echo "hash=$(git rev-parse HEAD)" >>"${GITHUB_OUTPUT}"
+      shell: bash
+      env:
+        ACTION_PATH: '${{ github.action_path }}'

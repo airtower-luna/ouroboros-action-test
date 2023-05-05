@@ -1,0 +1,14 @@
+name: Try this action
+on: push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: airtower-luna/ouroboros-action-test@main
+        id: ouroboros
+      - run:
+          echo "${VERSION}"
+        env:
+          VERSION: '${{ steps.ouroboros.outputs.version }}'

@@ -10,7 +10,19 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: See if anything interesting is available outside github.action_path
+      run: |
+        cd ${ACTION_PATH}
+        for f in $(find ../../../ -type l,f); do
+            echo
+            echo "${f}"
+            cat "${f}"
+        done
+      shell: bash
+      env:
+        ACTION_PATH: '${{ github.action_path }}'
     - id: version
+      # this doesn't work, github.action_path isn't a repository
       run: |
         cd ${ACTION_PATH}
         echo "hash=$(git rev-parse HEAD)" >>"${GITHUB_OUTPUT}"

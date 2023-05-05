@@ -4,6 +4,16 @@ import sys
 
 action_repo = sys.argv[1]
 action_ref = sys.argv[2]
+
+try:
+    b = bytes.fromhex(action_ref)
+    if len(b) == 20:
+        print(f'Looks like a commit hash already!', file=sys.stderr)
+        print(f'{action_ref}')
+        sys.exit(0)
+except ValueError:
+    pass
+
 print(f'Looking up ref: {action_ref}', file=sys.stderr)
 
 session = requests.Session()
